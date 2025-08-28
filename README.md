@@ -49,6 +49,11 @@ pip install -e .
 ```
 
 
-## OpenAI API Key
+## API Key
 
-The Virtual Lab currently uses GPT-4o from OpenAI. Save your OpenAI API key as the environment variable `OPENAI_API_KEY`. For example, add `export OPENAI_API_KEY=<your_key>` to your `.bashrc` or `.bash_profile`.
+The Virtual Lab uses OpenAI models by default, but it can also run with Google's Gemini models through the OpenAI-compatible endpoint. Set one of the following environment variables:
+
+- `OPENAI_API_KEY` for OpenAI models
+- `GEMINI_API_KEY` for Gemini models
+
+If `GEMINI_API_KEY` is set, the code will automatically route requests to Gemini. For example, add `export GEMINI_API_KEY=<your_key>` to your `.bashrc` or `.bash_profile`.
