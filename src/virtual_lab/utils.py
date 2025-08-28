@@ -1,6 +1,7 @@
 """Contains useful utility functions."""
 
 import json
+import os
 import urllib.parse
 from pathlib import Path
 
@@ -15,8 +16,27 @@ from virtual_lab.constants import (
     MODEL_TO_OUTPUT_PRICE_PER_TOKEN,
     FINETUNING_MODEL_TO_TRAINING_PRICE_PER_TOKEN,
     PUBMED_TOOL_NAME,
+    GEMINI_BASE_URL,
 )
 from virtual_lab.prompts import format_references
+
+
+def get_client() -> OpenAI:
+    """Return an OpenAI client for either OpenAI or Gemini."""
+
+    gemini_key = os.getenv("GEMINI_API_KEY")
+    if gemini_key:
+        return OpenAI(api_key=gemini_key, base_url=GEMINI_BASE_URL)
+    return OpenAI()
+
+
+def get_async_client() -> AsyncOpenAI:
+    """Return an AsyncOpenAI client for either OpenAI or Gemini."""
+
+    gemini_key = os.getenv("GEMINI_API_KEY")
+    if gemini_key:
+        return AsyncOpenAI(api_key=gemini_key, base_url=GEMINI_BASE_URL)
+    return AsyncOpenAI()
 
 
 def get_pubmed_central_article(

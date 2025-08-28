@@ -4,7 +4,6 @@ import time
 from pathlib import Path
 from typing import Literal
 
-from openai import OpenAI
 from tqdm import trange, tqdm
 
 from virtual_lab.agent import Agent
@@ -24,6 +23,7 @@ from virtual_lab.utils import (
     convert_messages_to_discussion,
     count_discussion_tokens,
     count_tokens,
+    get_client,
     get_messages,
     get_summary,
     print_cost_and_time,
@@ -91,8 +91,8 @@ def run_meeting(
     # Start timing the meeting
     start_time = time.time()
 
-    # Set up client
-    client = OpenAI()
+    # Set up client (OpenAI or Gemini depending on environment variable)
+    client = get_client()
 
     # Set up team
     if meeting_type == "team":
